@@ -56,7 +56,7 @@ if __name__ == "__main__":
         if '\t' not in line:
             continue
 
-        input_sentence, output = line.rstrip().split('\t')
+        input_sentence, output, _ = line.rstrip().split('\t')
 
         output_sentence = output + ' <eos>'
         output_sentence_input = '<sos> ' + output
