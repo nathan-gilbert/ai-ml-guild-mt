@@ -47,7 +47,7 @@ if __name__ == "__main__":
     output_sentences_inputs = []
 
     count = 0
-    for line in open(r'./fra.txt', encoding="utf-8"):
+    for line in open(r'fra.txt', encoding="utf-8"):
         count += 1
 
         if count > NUM_SENTENCES:
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     print(word2idx_outputs["malade."])
 
     embeddings_dictionary = dict()
-    glove_file = open(r'/content/drive/My Drive/datasets/glove.6B.100d.txt', encoding="utf8")
+    glove_file = open(r'glove.6B.100d.txt', encoding="utf8")
     for line in glove_file:
         records = line.split()
         word = records[0]

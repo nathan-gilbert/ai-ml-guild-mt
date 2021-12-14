@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 fra.txt
+glove.6b.100d.txt
