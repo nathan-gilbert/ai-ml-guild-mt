@@ -1,9 +1,9 @@
 import tensorflow as tf
 from tf.keras.models import Model
-from tf.keras.layers import Input, LSTM, Dense, Embedding
-from tf.keras.preprocessing.text import Tokenizer
-from tf.keras.preprocessing.sequence import pad_sequences
-from tf.keras.utils import plot_models
+from keras.layers import Input, LSTM, Dense, Embedding
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
+from keras.utils import plot_model
 import numpy as np
 from numpy import asarray
 from numpy import zeros
