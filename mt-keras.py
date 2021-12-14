@@ -1,12 +1,12 @@
-import os, sys
-
-from keras.models import Model
-from keras.layers import Input, LSTM, GRU, Dense, Embedding
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
-from keras.utils import to_categorical
+import tensorflow as tf
+from tf.keras.models import Model
+from tf.keras.layers import Input, LSTM, Dense, Embedding
+from tf.keras.preprocessing.text import Tokenizer
+from tf.keras.preprocessing.sequence import pad_sequences
+from tf.keras.utils import plot_models
 import numpy as np
-import matplotlib.pyplot as plt
+from numpy import asarray
+from numpy import zeros
 
 BATCH_SIZE = 64
 EPOCHS = 20
@@ -21,7 +21,7 @@ output_sentences = []
 output_sentences_inputs = []
 
 count = 0
-for line in open(r'/content/drive/My Drive/datasets/fra.txt', encoding="utf-8"):
+for line in open(r'./fra.txt', encoding="utf-8"):
     count += 1
 
     if count > NUM_SENTENCES:
@@ -86,9 +86,6 @@ print(word2idx_outputs["suis"])
 print(word2idx_outputs["malade."])
 
 
-from numpy import array
-from numpy import asarray
-from numpy import zeros
 
 embeddings_dictionary = dict()
 
@@ -121,9 +118,9 @@ decoder_targets_one_hot = np.zeros((
     dtype='float32'
 )
 
-decoder_targets_one_hot.shape
+print(decoder_targets_one_hot.shape)
 
-for i, d in enumerate(decoder_output_sequences):
+for i, d in enumerate(decoder_input_sequences):
     for t, word in enumerate(d):
         decoder_targets_one_hot[i, t, word] = 1
 
@@ -152,7 +149,6 @@ model.compile(
     metrics=['accuracy']
 )
 
-from keras.utils import plot_model
 plot_model(model, to_file='model_plot4a.png', show_shapes=True, show_layer_names=True)
 
 r = model.fit(
@@ -178,9 +174,8 @@ decoder_model = Model(
     [decoder_outputs] + decoder_states
 )
 
-from keras.utils import plot_model
 plot_model(decoder_model, to_file='model_plot_dec.png', show_shapes=True,
-        show_layer_names=True)a
+        show_layer_names=True)
 
 idx2word_input = {v:k for k, v in word2idx_inputs.items()}
 idx2word_target = {v:k for k, v in word2idx_outputs.items()}
