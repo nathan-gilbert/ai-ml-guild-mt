@@ -1,5 +1,4 @@
-import tensorflow as tf
-from tf.keras.models import Model
+from keras.models import Model
 from keras.layers import Input, LSTM, Dense, Embedding
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
