@@ -16,7 +16,7 @@ MAX_NUM_WORDS = 20000
 EMBEDDING_SIZE = 100
 
 
-def translate_sentence(input_seq):
+def translate_sentence(input_seq) -> str:
     states_value = encoder_model.predict(input_seq)
     target_seq = np.zeros((1, 1))
     target_seq[0, 0] = word2idx_outputs['<sos>']
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     output_sentences_inputs = []
 
     count = 0
-    for line in open(r'fra.txt', encoding="utf-8"):
+    for line in open(r'./fra.txt', encoding="utf-8"):
         count += 1
 
         if count > NUM_SENTENCES:
@@ -106,13 +106,16 @@ if __name__ == "__main__":
     print("decoder_input_sequences.shape:", decoder_input_sequences.shape)
     print("decoder_input_sequences[172]:", decoder_input_sequences[172])
 
+    # Getting the labels
+    decoder_output_sequences = pad_sequences(output_integer_seq, maxlen=max_out_len, padding='post')
+
     print(word2idx_outputs["<sos>"])
     print(word2idx_outputs["je"])
     print(word2idx_outputs["suis"])
     print(word2idx_outputs["malade."])
 
     embeddings_dictionary = dict()
-    glove_file = open(r'glove.6B.100d.txt', encoding="utf8")
+    glove_file = open(r'./glove.6B.100d.txt', encoding="utf8")
     for line in glove_file:
         records = line.split()
         word = records[0]
@@ -140,7 +143,8 @@ if __name__ == "__main__":
     )
 
     print(decoder_targets_one_hot.shape)
-    for i, d in enumerate(decoder_input_sequences):
+    #for i, d in enumerate(decoder_input_sequences):
+    for i, d in enumerate(decoder_output_sequences):
         for t, word in enumerate(d):
             decoder_targets_one_hot[i, t, word] = 1
 
@@ -196,8 +200,8 @@ if __name__ == "__main__":
 
     plot_model(decoder_model, to_file='model_plot_dec.png', show_shapes=True, show_layer_names=True)
 
-    idx2word_input = {v:k for k, v in word2idx_inputs.items()}
-    idx2word_target = {v:k for k, v in word2idx_outputs.items()}
+    idx2word_input = {v: k for k, v in word2idx_inputs.items()}
+    idx2word_target = {v: k for k, v in word2idx_outputs.items()}
 
     i = np.random.choice(len(input_sentences))
     input_seq = encoder_input_sequences[i:i+1]
